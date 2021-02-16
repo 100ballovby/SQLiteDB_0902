@@ -25,3 +25,9 @@ class Database:
         rows = self.cur.fetchall()
         return rows
 
+    def fetch2(self, query):
+        self.cur.execute(query)
+        rows = self.cur.fetchall()
+        return rows
+
+
