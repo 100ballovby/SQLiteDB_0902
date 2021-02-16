@@ -30,4 +30,15 @@ class Database:
         rows = self.cur.fetchall()
         return rows
 
+    def insert(self, hostname, brand, ram, flash):
+        self.cur.execute(f"""
+        INSERT INTO {self.table_name} 
+        VALUES (NULL, {hostname}, {brand}, {ram}, {flash})
+        """)
+        self.conn.commit()
 
+    def remove(self, id):
+        self.cur.execute(f"""
+        DELETE FROM {self.table_name} WHERE id = {id}
+        """)
+        self.conn.commit()
