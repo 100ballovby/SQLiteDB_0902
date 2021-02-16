@@ -42,3 +42,13 @@ class Database:
         DELETE FROM {self.table_name} WHERE id = {id}
         """)
         self.conn.commit()
+
+    def update(self, id, hostname, brand, ram, flash):
+        self.conn.execute(f"""
+        UPDATE {self.table_name} SET hostname={hostname}, 
+        brand={brand}, ram={ram}, flash={flash} WHERE id={id}
+        """)
+        self.conn.commit()
+
+    def __del__(self):
+        self.conn.close()
