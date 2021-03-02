@@ -20,7 +20,7 @@ class Database:
     def fetch(self, hostame=''):
         self.cur.execute(
             f"""SELECT * FROM {self.table_name} 
-            WHERE hostname LIKE '%{hostame}%'"""
+            WHERE hostname LIKE ?""", ('%'+hostame+'%',)
         )
         rows = self.cur.fetchall()
         return rows
@@ -33,8 +33,7 @@ class Database:
     def insert(self, hostname, brand, ram, flash):
         self.cur.execute(f"""
         INSERT INTO {self.table_name} 
-        VALUES (NULL, {hostname}, {brand}, {ram}, {flash})
-        """)
+        VALUES (NULL, ?, ?, ?, ?)""", (hostname, brand, ram, flash))
         self.conn.commit()
 
     def remove(self, id):
@@ -45,9 +44,9 @@ class Database:
 
     def update(self, id, hostname, brand, ram, flash):
         self.conn.execute(f"""
-        UPDATE {self.table_name} SET hostname={hostname}, 
-        brand={brand}, ram={ram}, flash={flash} WHERE id={id}
-        """)
+        UPDATE {self.table_name} SET hostname=?, 
+        brand=?, ram=?, flash=? WHERE id={id}
+        """, (hostname, brand, ram, flash))
         self.conn.commit()
 
     def __del__(self):

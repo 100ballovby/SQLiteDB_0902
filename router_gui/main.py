@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter.ttk import Treeview
 from database import Database
 
-db = Database('shop', tn='routers')
+db = Database('shop.db', tn='routers')
 
 
 def populate_list(hostname=''):
@@ -139,4 +139,33 @@ for col in columns[1:]:
 router_tree_view.bind('<<TreeviewSelect>>', select_router)
 router_tree_view.pack(side='left', fill='y')
 
+# КНОПКИ
+frame_btns = Frame(app)
+frame_btns.grid(row=3, column=0, pady=30)
+
+add_btn = Button(frame_btns, text="Add router",
+                 width=12, command=add_router)
+add_btn.grid(row=0, column=1)
+
+remove_btn = Button(frame_btns, text="Remove router",
+                    width=12, command=delete_router)
+remove_btn.grid(row=0, column=2)
+
+update_btn = Button(frame_btns, text="Update router",
+                    width=12, command=update_router)
+update_btn.grid(row=0, column=3)
+
+clear_btn = Button(frame_btns, text="Clear Input",
+                   width=12, command=clear_text)
+clear_btn.grid(row=1, column=1)
+
+search_btn = Button(frame_btns, text="Search",
+                    width=12, command=search_hostname)
+search_btn.grid(row=1, column=2)
+
+search_query = Button(frame_btns, text="Search Query",
+                      width=12, command=execute_query)
+search_query.grid(row=1, column=3)
+
+populate_list()
 app.mainloop()
